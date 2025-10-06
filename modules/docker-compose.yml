@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpassword
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  wildfly:
+    image: mywildfly:0.14
+    container_name: mywildfly
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    restart: unless-stopped
+

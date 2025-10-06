@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'war'
 }
 
 group = 'com.example'
@@ -29,6 +30,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.session:spring-session-data-redis'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-logging'
+
+
+	// JNDI
+	compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+	// Infinispan
+	compileOnly 'org.infinispan:infinispan-core:13.0.10.Final'
+	compileOnly 'org.infinispan:infinispan-commons:13.0.10.Final'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -37,4 +50,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+bootJar {
+	enabled = false
+}
+
+bootWar {
+	archiveFileName = 'ROOT.war'
 }
