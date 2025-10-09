@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   wildfly:
-    image: mywildfly:0.14
+    image: mywildfly:0.22
     container_name: mywildfly
     depends_on:
       - redis
